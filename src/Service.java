@@ -1,3 +1,5 @@
+import com.sun.source.util.Trees;
+
 import java.time.LocalDate;
 import java.util.*;
 public class Service implements ClinicOperations {
@@ -10,7 +12,7 @@ public class Service implements ClinicOperations {
     public Service(){
         this.clients=new ArrayList<>();
         this.pets=new HashMap<>();
-        this.appointments=new HashSet<>();
+        this.appointments=new TreeSet<>();
         this.medicalRecords= new HashMap<>();
         this.inventory= new HashMap<>();
     }

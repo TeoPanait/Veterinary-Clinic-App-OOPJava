@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Appointment {
+public class Appointment implements Comparable<Appointment>{
     private static int idCounter=1;
     private int appointmentId;
     private LocalDateTime dateTime;
@@ -37,8 +37,11 @@ public class Appointment {
         DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return this.dateTime.format(formatter);
     }
-//    @Override
-//    public int compareTo(Appointment other){
-//        return this.dateTime.compareTo(other.dateTime);
-//    }
+   @Override
+    public int compareTo(Appointment other) {
+        if (this.dateTime == null || other.dateTime == null) {
+            return 0;
+        }
+        return this.dateTime.compareTo(other.getDateTime());
+    }
 }
