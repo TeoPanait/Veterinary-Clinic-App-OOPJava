@@ -1,0 +1,1 @@
+Java OOP Project simulating a veterinary clinic's workflow: patient registration, appointments, consultations, and pharmacy management. The code implements OOP concepts, Java Collections, and custom Exceptions.
