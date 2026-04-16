@@ -1,5 +1,5 @@
 public class Treatment {
-    public String name;
+    private String name;
     private String administrationMode;
     private double cost;
 
@@ -12,12 +12,27 @@ public class Treatment {
         return name;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
+
     public String getAdministrationMode(){
         return administrationMode;
     }
+
+    public void setAdministrationMode(String administrationMode){
+        this.administrationMode = administrationMode;
+    }
+
     public double getCost(){
         return cost;
     }
 
-
+    public void setCost(double cost){
+        if(cost > 0){
+            this.cost = cost;
+        } else {
+            System.out.println("Error: Cost must be positive");
+        }
+    }
 }

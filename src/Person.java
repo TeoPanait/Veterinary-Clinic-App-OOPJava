@@ -13,21 +13,21 @@ public class Person {
     public String getName(){
         return name;
     }
-    public void setName(){
+    public void setName(String name){
         this.name=name;
     }
 
     public String getSurname(){
         return surname;
     }
-    public  void setSurname(){
+    public  void setSurname(String surname){
         this.surname=surname;
     }
 
     public String getPhoneNumber(){
         return phoneNumber;
     }
-    public void setPhoneNumber(){
+    public void setPhoneNumber(String phoneNumber){
         this.phoneNumber=phoneNumber;
     }
 }

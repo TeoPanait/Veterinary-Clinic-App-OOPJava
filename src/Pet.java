@@ -21,7 +21,7 @@ public class Pet {
     public String getNamePet(){
         return namePet;
     }
-    public void setNamePet(){
+    public void setNamePet(String namePet){
         this.namePet=namePet;
     }
 
@@ -43,7 +43,7 @@ public class Pet {
     }
     public void setWeight(double newWeight){
         if(newWeight>0.0){
-            this.weight=weight;
+            this.weight=newWeight;
         } else {
             System.out.println("Eroare!! Greutatea nu poate fi negativa");
         }

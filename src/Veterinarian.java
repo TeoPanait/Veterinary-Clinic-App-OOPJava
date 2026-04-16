@@ -5,4 +5,12 @@ public class Veterinarian extends Person{
         super(name, surname, phoneNumber);
         this.specialization=specialization;
     }
+
+    public String getSpecialization(){
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization){
+        this.specialization=specialization;
+    }
 }

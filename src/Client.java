@@ -19,6 +19,10 @@ public class Client extends Person{
         this.email = email;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }
