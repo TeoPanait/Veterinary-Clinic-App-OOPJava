@@ -1,3 +1,5 @@
+package model;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,9 +18,19 @@ public class Appointment implements Comparable<Appointment>{
         this.appointmentId=idCounter++;
         this.dateTime=dateTime;
         this.patient=patient;
+        this.vet=vet;
         this.reason=reason;
         this.status="PROG";
     }
+    public Appointment(LocalDateTime dateTime, Pet patient, Veterinarian vet, String reason, String status){
+        this.appointmentId = idCounter++;
+        this.dateTime = dateTime;
+        this.patient = patient;
+        this.vet = vet;
+        this.reason = reason;
+        this.status = (status == null || status.isBlank()) ? "PROG" : status;
+    }
+
     public int getAppointmentId() { return appointmentId; }
     public LocalDateTime getDateTime() { return dateTime; }
     public Pet getPatient() { return patient; }

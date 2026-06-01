@@ -1,9 +1,11 @@
+package model;
+
 public class Treatment {
     private String name;
     private String administrationMode;
     private double cost;
 
-    Treatment(String name, String administrationMode, double cost){
+    public Treatment(String name, String administrationMode, double cost){
         this.name=name;
         this.administrationMode=administrationMode;
         this.cost=cost;

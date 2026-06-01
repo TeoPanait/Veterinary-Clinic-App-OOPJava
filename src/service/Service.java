@@ -1,4 +1,6 @@
-import com.sun.source.util.Trees;
+package service;
+import exception.*;
+import model.*;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -8,6 +10,7 @@ public class Service implements ClinicOperations {
     private Set<Appointment> appointments;
     private Map<Integer, MedicalRecord> medicalRecords;
     private Map<String, Medication> inventory;
+    private final AuditService auditService;
 
     public Service(){
         this.clients=new ArrayList<>();
@@ -15,13 +18,15 @@ public class Service implements ClinicOperations {
         this.appointments=new TreeSet<>();
         this.medicalRecords= new HashMap<>();
         this.inventory= new HashMap<>();
+        this.auditService=AuditService.getInstance();
     }
 
     @Override
     public void addClient(Client client){
 
         clients.add(client);
-        System.out.println("Client " + client.getName()+ " " + client.getSurname()+ " was added");
+        System.out.println("model.Client " + client.getName()+ " " + client.getSurname()+ " was added");
+        auditService.logAction("added client");
 
     }
 
@@ -30,13 +35,14 @@ public class Service implements ClinicOperations {
 
         pets.put(patient.getId(), patient);
         System.out.println(" Pacient " + patient.getNamePet() + " was registered");
-
+        auditService.logAction("added pet");
     }
 
     @Override
     public void scheduleAppointment(Appointment appointment){
         appointments.add(appointment);
-        System.out.println(" Appointment registered for : " + appointment.getFormattedDateTime());
+        System.out.println(" model.Appointment registered for : " + appointment.getFormattedDateTime());
+        auditService.logAction("scheduled an appointment");
     }
 
     @Override
@@ -44,7 +50,8 @@ public class Service implements ClinicOperations {
         for(Appointment app : appointments){
             if(app.getAppointmentId() == appointmentId){
                 app.setStatus("Canceled");
-                System.out.println(" Appointment with id:" + appointmentId+ " was canceled");
+                System.out.println(" model.Appointment with id:" + appointmentId+ " was canceled");
+                auditService.logAction("cancelled an appointment");
                 return;
             }
         }
@@ -55,6 +62,7 @@ public class Service implements ClinicOperations {
     public void addMedicalRecord(MedicalRecord record){
         medicalRecords.put(record.getIdRecord(), record);
         System.out.println("Medical record with id:" + record.getIdRecord() + " added");
+        auditService.logAction("added medical record");
     }
 
     @Override
@@ -62,9 +70,10 @@ public class Service implements ClinicOperations {
         Pet pet=pets.get(petId);
         if(pet!= null){
             System.out.println("Vet applied treatment '"+ treatment.getName() + "' on pet "+ pet.getNamePet());
+            auditService.logAction("performed a treatment");
         }else {
             //System.out.println("This pet doesn't exist");
-            throw new PetNotFoundException("Erorr: Pet with id "+ petId+ " does not exist");
+            throw new PetNotFoundException("Erorr: model.Pet with id "+ petId+ " does not exist");
         }
     }
 
@@ -74,6 +83,7 @@ public class Service implements ClinicOperations {
         if(record!= null){
             record.setDiagnosis(newDiagnosis);
             System.out.println("Diagnosis updated for record: "+ record.getIdRecord());
+            auditService.logAction("updated diagnosis");
         }else{
             System.out.println("Error: Medical record doesn't exist");
         }
@@ -82,7 +92,8 @@ public class Service implements ClinicOperations {
     @Override
     public void addMedicationToInventory(Medication medication){
         inventory.put(medication.getMedName(), medication);
-        System.out.println("Medication " + medication.getMedName() + " was added to inventory");
+        System.out.println("model.Medication " + medication.getMedName() + " was added to inventory");
+        auditService.logAction("added medication to inventory");
     }
 
     @Override
@@ -90,8 +101,9 @@ public class Service implements ClinicOperations {
         Medication med=inventory.get(medName);
         if(med!=null){
             med.addStock(quantity);
+            auditService.logAction("restocked medication");
         }else {
-            System.out.println("Error: Medication '" + medName+ "' doesn't exist ");
+            System.out.println("Error: model.Medication '" + medName+ "' doesn't exist ");
         }
     }
 
@@ -107,6 +119,7 @@ public class Service implements ClinicOperations {
             med.decreaseStock(quantity);
             record.addMedication(med);
             System.out.println(quantity + " " + medName + " were prescribed");
+            auditService.logAction("prescribed medication");
         }else {
             System.out.println("Error: Medical record or medication doesn't exist");
         }
@@ -139,6 +152,7 @@ public class Service implements ClinicOperations {
         }
         for(Pet pet: pets.values()){
             System.out.println("id: "+ pet.getId()+ " , name: "+ pet.getNamePet());
+            auditService.logAction("view all pets");
         }
 
     }
@@ -152,6 +166,7 @@ public class Service implements ClinicOperations {
         for(Medication med: inventory.values()){
             if(med.getStock() > 0){
                 System.out.println("medication: "+ med.getMedName() + ", stock: " + med.getStock());
+                auditService.logAction("view available medication");
             }
         }
 
@@ -165,6 +180,7 @@ public class Service implements ClinicOperations {
         for(Appointment app : appointments){
             if(app.getDateTime().toLocalDate().equals(date)){
                 System.out.println("time : " + app.getDateTime().toLocalTime() + ", patient : "+ app.getPatient().getNamePet() + ", reason: "+ app.getReason());
+                auditService.logAction("view appointment for date");
                 found=true;
             }
         }
@@ -181,6 +197,7 @@ public class Service implements ClinicOperations {
         for(MedicalRecord record: medicalRecords.values()){
             if(record.getPatient().getId() == petId){
                 System.out.println("Date : " +record.getDateTime().toLocalDate() + ", diagnosis: "+ record.getDiagnosis());
+                auditService.logAction("get medical history");
                 found=true;
             }
         }

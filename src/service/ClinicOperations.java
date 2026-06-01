@@ -1,3 +1,7 @@
+package service;
+
+import model.*;
+
 import java.time.LocalDate;
 
 public interface ClinicOperations {

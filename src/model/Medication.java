@@ -1,3 +1,5 @@
+package model;
+
 public class Medication {
     private String medName;
     private String dosage;
@@ -5,7 +7,7 @@ public class Medication {
     private int stock;
     private boolean reqPrescription;
 
-    Medication(String medName, String dosage, double price,
+    public Medication(String medName, String dosage, double price,
                int stock, boolean reqPrescription){
         this.medName=medName;
         this.dosage=dosage;

@@ -1,4 +1,6 @@
-public class Pet {
+package model;
+
+public abstract class Pet {
     private static int idCounter=1;
     private int id;
     private String namePet;
@@ -6,7 +8,7 @@ public class Pet {
     private double weight;
     private Client owner;
 
-    Pet(String namePet, int age, double weight, Client owner){
+    protected Pet(String namePet, int age, double weight, Client owner){
         this.id=idCounter++;
         this.namePet=namePet;
         this.age=age;
@@ -60,7 +62,5 @@ public class Pet {
         }
     }
 
-    public void makeSound(){
-        System.out.println("Sunet nedefinit");
-    }
+    public abstract void makeSound();
 }

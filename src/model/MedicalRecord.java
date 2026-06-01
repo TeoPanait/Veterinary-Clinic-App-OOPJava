@@ -1,3 +1,5 @@
+package model;
+
 import java.util.*;
 import java.time.LocalDateTime;
 
@@ -21,7 +23,7 @@ public class MedicalRecord {
         this.appliedTreatment = appliedTreatment;
     }
 
-    MedicalRecord(Pet patient, Veterinarian vet, String diagnosis,
+    public MedicalRecord(Pet patient, Veterinarian vet, String diagnosis,
                   Treatment appliedTreatment, List<Medication> prescribedMeds, LocalDateTime dateTime){
         this.idRecord=idCounter++;
         this.patient=patient;

@@ -1,10 +1,10 @@
-import java.util.Locale;
+package model;
 
-public class Client extends Person{
+public class Client extends Person {
     private String email;
     private String address;
 
-    Client(String name, String surname, String phoneNumber,
+    public Client(String name, String surname, String phoneNumber,
            String email, String address){
         super(name, surname, phoneNumber);
         this.email=email;

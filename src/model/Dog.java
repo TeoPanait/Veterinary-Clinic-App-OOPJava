@@ -1,8 +1,10 @@
-public class Dog extends Pet{
+package model;
+
+public class Dog extends Pet {
     private final String dogBreed;
     private final String size;
 
-    Dog(String namePet, int age, double weight, Client owner, String dogBreed, String size){
+    public Dog(String namePet, int age, double weight, Client owner, String dogBreed, String size){
         super(namePet, age, weight, owner);
         this.dogBreed=dogBreed;
         this.size=size;

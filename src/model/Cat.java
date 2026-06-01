@@ -1,21 +1,23 @@
-public class Cat extends Pet{
+package model;
 
-    private final String CatBreed;
-    private final String FurType;
+public class Cat extends Pet {
+
+    private final String catBreed;
+    private final String furType;
     private boolean isIndoor;
 
-    Cat(String namePet, int age, double weight, Client owner, String CatBreed, String FurType, boolean isIndoor){
+    public Cat(String namePet, int age, double weight, Client owner, String CatBreed, String FurType, boolean isIndoor){
         super(namePet, age, weight, owner);
-        this.CatBreed=CatBreed;
-        this.FurType=FurType;
+        this.catBreed=CatBreed;
+        this.furType=FurType;
         this.isIndoor=isIndoor;
     }
 
     public String getCatBreed(){
-        return CatBreed;
+        return catBreed;
     }
     public String getFurType(){
-        return FurType;
+        return furType;
     }
 
     public boolean isIndoor(){
