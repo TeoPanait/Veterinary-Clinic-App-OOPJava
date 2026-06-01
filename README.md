@@ -10,7 +10,7 @@ The project was designed as an object-oriented system and extended with:
 - a CSV-based audit mechanism
 - a console interface
 - a JavaFX graphical interface
-- design patterns such as Singleton, Factory, Builder, and Strategy
+- design patterns such as Singleton, Factory, and Builder
 
 The application demonstrates how a layered software solution can be used to model a realistic clinic workflow while keeping business rules, persistence, and presentation concerns separated.
 
@@ -101,13 +101,6 @@ Used for constructing appointment objects in a controlled way:
 
 - `AppointmentBuilder`
 
-### Strategy (Bonus)
-Used to provide multiple implementations of the same business operations interface:
-
-- `ClinicOperations` interface implemented by:
-  - `Service` (in-memory implementation for testing)
-  - `ClinicDbService` (database implementation for production)
-
 These patterns improve readability, reduce duplication, and support maintainable design.
 
 ---
@@ -122,6 +115,8 @@ The database includes the following tables:
 
 - `clients`
 - `pets`
+- `dogs`
+- `cats`
 - `veterinarians`
 - `appointments`
 - `medical_records`
@@ -163,10 +158,8 @@ It is responsible for:
 - retrieving prescriptions for a given record
 - coordinating audit logging
 
-The service implements the `ClinicOperations` interface and follows the Singleton pattern to ensure a single instance manages all database operations.
-
 ### AuditService
-`AuditService` writes important actions to a CSV file in order to preserve traceability of the system's activity.
+`AuditService` writes important actions to a CSV file in order to preserve traceability of the system’s activity.
 
 The audit file stores entries in the format:
 
@@ -282,9 +275,9 @@ The **Vet Clinic Management System** is a complete Java project that demonstrate
 
 - object-oriented design
 - inheritance and composition
-- collections (List, Map, Set with sorted TreeSet)
+- collections
 - custom exceptions
-- design patterns (Singleton, Factory, Builder, Strategy)
+- design patterns
 - JDBC persistence
 - audit logging
 - console and graphical interfaces
