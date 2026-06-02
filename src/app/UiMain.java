@@ -9,6 +9,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.application.Application;
+import presentation.UiAddClient;
+import presentation.UiClients;
+import presentation.UiMedication;
+import presentation.UiPets;
 
 public class UiMain extends Application {
 

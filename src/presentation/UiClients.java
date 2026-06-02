@@ -1,4 +1,4 @@
-package app;
+package presentation;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,25 +9,25 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import repository.MedicationDao;
+import repository.ClientDao;
 
 import java.util.List;
 
-public class UiMedication {
-    // dao for medications table
-    private final MedicationDao medicationDao = new MedicationDao();
-    // observable list for the list view
+public class UiClients {
+    // data access object used to read clients from the database
+    private final ClientDao clientDao = new ClientDao();
+    // observable list backing the listview
     private final ObservableList<String> items = FXCollections.observableArrayList();
-    // list view showing medications
+    // list view that shows clients (simple text rows)
     private final ListView<String> listView = new ListView<>(items);
 
-    public UiMedication() {
+    public UiClients() {
         listView.setPrefSize(800, 500);
     }
 
     public Node getView() {
-        // build ui controls
-        Button btnLoad = new Button("Show medications");
+        // build the view node (top controls + center list)
+        Button btnLoad = new Button("Show clients");
         Button btnRefresh = new Button("Refresh");
         Label status = new Label("Ready");
 
@@ -43,19 +43,25 @@ public class UiMedication {
         return pane;
     }
 
-    public void refresh() { refresh(null, null, null); }
+    // public method to refresh data from outside (e.g. after insert)
+    public void refresh() {
+        refresh(null, null, null);
+    }
 
     private void refresh(Label status, Button bLoad, Button bRefresh) {
         if (bLoad != null) bLoad.setDisable(true);
         if (bRefresh != null) bRefresh.setDisable(true);
         if (status != null) status.setText("Loading...");
 
-        // run dao call on background thread
+        // perform DB read on background thread so ui stays responsive
         Task<List<String>> task = new Task<>() {
-            @Override protected List<String> call() { return medicationDao.findAllBasic(); }
+            @Override
+            protected List<String> call() {
+                return clientDao.findAllBasic();
+            }
         };
 
-        // update ui when task completes
+        // when background task finishes successfully, update ui
         task.setOnSucceeded(ev -> {
             items.setAll(task.getValue());
             if (status != null) status.setText("Loaded: " + task.getValue().size());
@@ -63,6 +69,7 @@ public class UiMedication {
             if (bRefresh != null) bRefresh.setDisable(false);
         });
 
+        // handle failure and re-enable buttons
         task.setOnFailed(ev -> {
             if (status != null) status.setText("Error: " + task.getException().getMessage());
             if (bLoad != null) bLoad.setDisable(false);
@@ -70,7 +77,7 @@ public class UiMedication {
             task.getException().printStackTrace();
         });
 
-        Thread t = new Thread(task, "meds-loader");
+        Thread t = new Thread(task, "clients-loader");
         t.setDaemon(true);
         t.start();
     }

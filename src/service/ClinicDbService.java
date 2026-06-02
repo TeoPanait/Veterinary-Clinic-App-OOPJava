@@ -29,6 +29,7 @@ import java.util.List;
 public class ClinicDbService implements ClinicOperations {
     private static ClinicDbService instance;
 
+    // 'final' ensures these dependencies are initialized exactly once in the constructor
     private final ClientDao clientDao;
     private final PetDao petDao;
     private final VeterinarianDao veterinarianDao;

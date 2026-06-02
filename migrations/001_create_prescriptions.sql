@@ -1,3 +1,4 @@
+
 -- migrations/001_create_prescriptions.sql
 -- Creates medications (if missing) and prescriptions table
 
