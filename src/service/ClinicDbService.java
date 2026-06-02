@@ -53,7 +53,7 @@ public class ClinicDbService implements ClinicOperations {
 
     // lazy initialization: creates instance only on first call, then returns same instance
     // ensures single service manages all database connections and operations
-    public static ClinicDbService getInstance() {
+    public static synchronized ClinicDbService getInstance() {
         if (instance == null) {
             instance = new ClinicDbService();
         }

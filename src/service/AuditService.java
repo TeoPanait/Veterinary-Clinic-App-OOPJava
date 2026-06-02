@@ -21,7 +21,7 @@ public class AuditService {
     
     // return the shared audit service instance
     // lazy initialization: creates instance only when first called
-    public static AuditService getInstance() {
+    public static synchronized AuditService getInstance() {
         if(instance == null) {
             instance = new AuditService();
         }
