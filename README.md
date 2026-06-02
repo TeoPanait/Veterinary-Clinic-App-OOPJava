@@ -139,6 +139,9 @@ This structure makes the data model clearer and easier to maintain.
 
 <img width="700" height="300" alt="image" src="https://github.com/user-attachments/assets/467f23e9-517e-48e8-8d7b-e3eb424418fb" />
 
+<img width="700" height="700" alt="image" src="https://github.com/user-attachments/assets/dba795c4-aa92-4b05-a6d0-237925e66034" />
+
+
 ---
 
 ## 6. Services
