@@ -2,6 +2,7 @@ package app;
 
 import model.*;
 import service.ClinicDbService;
+import service.ClinicDbOperations;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ClinicDbService clinicService = ClinicDbService.getInstance();
+        ClinicDbOperations clinicService = ClinicDbService.getInstance();
 
         while (true) {
             System.out.println("\n=== VET CLINIC MENU ===");
@@ -25,9 +26,9 @@ public class Main {
             System.out.println("7. Add medication");
             System.out.println("8. Add appointment");
             System.out.println("9. Show appointments");
-            System.out.println("10. Add medical record");
-            System.out.println("11. Prescribe medication");
-            System.out.println("12. Show prescriptions for record");
+            //System.out.println("10. Add medical record");
+            //System.out.println("11. Prescribe medication");
+            //System.out.println("12. Show prescriptions for record");
             System.out.println("0. Exit");
             System.out.print("Choose option: ");
 
@@ -195,13 +196,13 @@ public class Main {
                     System.out.print("Pet id: ");
                     int petId = Integer.parseInt(scanner.nextLine());
 
-                    System.out.print("Vet id (or 0): ");
+                    System.out.print("Vet id (or 1): ");
                     int vetId = Integer.parseInt(scanner.nextLine());
 
                     System.out.print("Diagnosis: ");
                     String diagnosis = scanner.nextLine();
 
-                    System.out.print("Treatment id (or 0): ");
+                    System.out.print("Treatment id (or 4): ");
                     int treatmentId = Integer.parseInt(scanner.nextLine());
 
                     int recId = clinicService.addMedicalRecord(petId, vetId == 0 ? 0 : vetId, diagnosis, treatmentId == 0 ? -1 : treatmentId);
